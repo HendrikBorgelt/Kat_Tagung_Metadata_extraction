@@ -2,10 +2,14 @@
 __pycache__/
 *.py[codz]
 *$py.class
+*.txt
+*.csv
 
 *.zip
 *.xlsx
 58_KAT_Abstracts_NFDI4Cat
+
+Widoco results/
 
 # PyCharm
 #   JetBrains specific template is maintained in a separate JetBrains.gitignore that can

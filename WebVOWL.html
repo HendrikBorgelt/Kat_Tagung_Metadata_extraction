@@ -1,0 +1,328 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebVOWL Local Viewer</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+        
+        #header {
+            background: #2c3e50;
+            color: white;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        #header h1 {
+            font-size: 24px;
+            margin-bottom: 10px;
+        }
+        
+        #controls {
+            background: white;
+            padding: 15px 20px;
+            border-bottom: 1px solid #ddd;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        #fileInput {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        button {
+            padding: 8px 16px;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+        
+        button:hover {
+            background: #2980b9;
+        }
+        
+        #status {
+            margin-left: auto;
+            color: #7f8c8d;
+            font-size: 14px;
+        }
+        
+        #status.success {
+            color: #27ae60;
+        }
+        
+        #status.error {
+            color: #e74c3c;
+        }
+        
+        #vowl-container {
+            width: 100%;
+            height: calc(100vh - 140px);
+            background: white;
+            position: relative;
+        }
+        
+        #graph {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .info-panel {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 15px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            max-width: 300px;
+            display: none;
+        }
+        
+        .info-panel.show {
+            display: block;
+        }
+        
+        .loading {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 18px;
+            color: #7f8c8d;
+        }
+    </style>
+</head>
+<body>
+    <div id="header">
+        <h1>WebVOWL - Local Ontology Viewer</h1>
+        <p>Visualize your RDF/OWL ontology locally without hosting</p>
+    </div>
+    
+    <div id="controls">
+        <input type="file" id="fileInput" accept=".owl,.rdf,.ttl,.xml" />
+        <button onclick="resetView()">Reset View</button>
+        <button onclick="exportSVG()">Export SVG</button>
+        <span id="status">Load an ontology file to begin</span>
+    </div>
+    
+    <div id="vowl-container">
+        <div id="graph"></div>
+        <div class="loading" id="loading">Load a file to visualize your ontology</div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/webvowl/1.1.7/webvowl.js"></script>
+    
+    <script>
+        let vowlGraph;
+        let currentData;
+        
+        // Initialize WebVOWL
+        function initWebVOWL() {
+            vowlGraph = webvowl.graph();
+            const options = webvowl.options();
+            
+            vowlGraph.graphOptions(options);
+            
+            d3.select("#graph").datum(vowlGraph).call(vowlGraph);
+            
+            // Add zoom controls
+            vowlGraph.start();
+        }
+        
+        // File input handler
+        document.getElementById('fileInput').addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (!file) return;
+            
+            const status = document.getElementById('status');
+            const loading = document.getElementById('loading');
+            
+            status.textContent = 'Loading file...';
+            status.className = '';
+            loading.style.display = 'block';
+            
+            const reader = new FileReader();
+            
+            reader.onload = function(event) {
+                try {
+                    const content = event.target.result;
+                    parseAndVisualize(content, file.name);
+                } catch (error) {
+                    status.textContent = 'Error: ' + error.message;
+                    status.className = 'error';
+                    loading.style.display = 'none';
+                }
+            };
+            
+            reader.onerror = function() {
+                status.textContent = 'Error reading file';
+                status.className = 'error';
+                loading.style.display = 'none';
+            };
+            
+            reader.readAsText(file);
+        });
+        
+        // Parse RDF/OWL and visualize
+        function parseAndVisualize(content, filename) {
+            const status = document.getElementById('status');
+            const loading = document.getElementById('loading');
+            
+            try {
+                // Convert RDF/OWL to JSON format expected by WebVOWL
+                const jsonData = convertToWebVOWLFormat(content, filename);
+                
+                if (!vowlGraph) {
+                    initWebVOWL();
+                }
+                
+                currentData = jsonData;
+                
+                // Load data into WebVOWL
+                vowlGraph.options().data(jsonData);
+                vowlGraph.update();
+                
+                status.textContent = `Loaded: ${filename} - ${jsonData.class ? jsonData.class.length : 0} classes, ${jsonData.property ? jsonData.property.length : 0} properties`;
+                status.className = 'success';
+                loading.style.display = 'none';
+                
+            } catch (error) {
+                status.textContent = 'Error parsing ontology: ' + error.message;
+                status.className = 'error';
+                loading.style.display = 'none';
+                console.error(error);
+            }
+        }
+        
+        // Convert RDF/OWL to WebVOWL JSON format
+        function convertToWebVOWLFormat(content, filename) {
+            // Basic parser for RDF/OWL
+            const parser = new DOMParser();
+            const doc = parser.parseFromString(content, 'text/xml');
+            
+            const data = {
+                _comment: "Generated from " + filename,
+                header: {
+                    languages: ["en"],
+                    title: { en: filename.replace(/\.[^/.]+$/, "") },
+                    version: "1.0"
+                },
+                namespace: [],
+                class: [],
+                classAttribute: [],
+                property: [],
+                propertyAttribute: []
+            };
+            
+            // Extract namespaces
+            const root = doc.documentElement;
+            for (let attr of root.attributes) {
+                if (attr.name.startsWith('xmlns:')) {
+                    const prefix = attr.name.substring(6);
+                    data.namespace.push({
+                        prefix: prefix,
+                        iri: attr.value
+                    });
+                }
+            }
+            
+            // Extract classes
+            const classes = doc.getElementsByTagNameNS('*', 'Class');
+            for (let i = 0; i < classes.length; i++) {
+                const cls = classes[i];
+                const about = cls.getAttribute('rdf:about') || cls.getAttribute('rdf:ID');
+                if (about) {
+                    data.class.push({
+                        id: 'class' + i,
+                        iri: about,
+                        type: 'owl:Class'
+                    });
+                }
+            }
+            
+            // Extract properties
+            const properties = ['ObjectProperty', 'DatatypeProperty', 'AnnotationProperty'];
+            let propId = 0;
+            
+            properties.forEach(propType => {
+                const props = doc.getElementsByTagNameNS('*', propType);
+                for (let i = 0; i < props.length; i++) {
+                    const prop = props[i];
+                    const about = prop.getAttribute('rdf:about') || prop.getAttribute('rdf:ID');
+                    if (about) {
+                        const domain = prop.getElementsByTagNameNS('*', 'domain')[0];
+                        const range = prop.getElementsByTagNameNS('*', 'range')[0];
+                        
+                        data.property.push({
+                            id: 'property' + propId++,
+                            iri: about,
+                            type: 'owl:' + propType,
+                            domain: domain ? (domain.getAttribute('rdf:resource') || 'class0') : 'class0',
+                            range: range ? (range.getAttribute('rdf:resource') || 'class0') : 'class0'
+                        });
+                    }
+                }
+            });
+            
+            return data;
+        }
+        
+        // Reset view
+        function resetView() {
+            if (vowlGraph) {
+                vowlGraph.reset();
+            }
+        }
+        
+        // Export SVG
+        function exportSVG() {
+            if (!vowlGraph) {
+                alert('Please load an ontology first');
+                return;
+            }
+            
+            const svgElement = document.querySelector('#graph svg');
+            if (!svgElement) {
+                alert('No visualization to export');
+                return;
+            }
+            
+            const serializer = new XMLSerializer();
+            const svgString = serializer.serializeToString(svgElement);
+            const blob = new Blob([svgString], { type: 'image/svg+xml' });
+            const url = URL.createObjectURL(blob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = 'ontology-visualization.svg';
+            a.click();
+            
+            URL.revokeObjectURL(url);
+        }
+        
+        // Initialize on load
+        window.addEventListener('load', function() {
+            initWebVOWL();
+        });
+    </script>
+</body>
+</html>
