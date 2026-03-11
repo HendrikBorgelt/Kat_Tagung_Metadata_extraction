@@ -1,0 +1,154 @@
+[
+    {
+        "file_title": "52236_abstract",
+        "dct:title": "Catalytic Reactor and Peripheric Equipment Metadata from Existing Standards and Ontologies",
+        "dcat:contactPoint": "Norbert Kockmann",
+        "dcat:keyword": "",
+        "dct:publisher": "DECHEMA",
+        "dcat:theme": "http://eurovoc.europa.eu/100142",
+        "dct:type": "http://purl.org/spar/fabio/Abstract",
+        "dct:issued": "2025-10-14",
+        "dct:language": "en",
+        "authors": [
+            {
+                "name": "Norbert Kockmann",
+                "affiliations": [
+                    "TU Dortmund University, Dortmund, Germany"
+                ]
+            },
+            {
+                "name": "Hendrik Borgelt",
+                "affiliations": [
+                    "TU Dortmund University, Dortmund, Germany"
+                ]
+            },
+            {
+                "name": "Alexander S. Behr",
+                "affiliations": [
+                    "TU Dortmund University, Dortmund, Germany"
+                ]
+            }
+        ],
+        "dct:relation": [
+            "Kockmann, N., Behr, A.S., Borgelt, H. et al., Whitepaper NFDI4Cat: Ontology-based Data Management and Interoperability: Workflow for Catalysis and Process Research Data, 2024, https://zenodo.org/records/11082928, DOI 10.5281/zenodo.10932848"
+        ]
+    },
+    {
+        "file_title": "54137_abstract",
+        "dct:title": "NFDI4Cat: Pioneering Tools and Services for Efficient Research Data Management in Catalysis",
+        "dcat:contactPoint": "",
+        "dcat:keyword": "",
+        "dct:publisher": "DECHEMA",
+        "dcat:theme": "http://eurovoc.europa.eu/100142",
+        "dct:type": "http://purl.org/spar/fabio/Abstract",
+        "dct:issued": "2025-10-14",
+        "dct:language": "en",
+        "authors": [
+            {
+                "name": "Nadiia Huskova",
+                "affiliations": [
+                    "High-Performance Computing Center Stuttgart (HLRS), University of Stuttgart, Stuttgart, Germany",
+                    "Fraunhofer FOKUS, TU Berlin, Berlin, Germany"
+                ]
+            },
+            {
+                "name": "Sonja Schimmler",
+                "affiliations": [
+                    "High-Performance Computing Center Stuttgart (HLRS), University of Stuttgart, Stuttgart, Germany",
+                    "Fraunhofer FOKUS, TU Berlin, Berlin, Germany"
+                ]
+            },
+            {
+                "name": "Yuliia Dikova",
+                "affiliations": [
+                    "High-Performance Computing Center Stuttgart (HLRS), University of Stuttgart, Stuttgart, Germany",
+                    "Fraunhofer FOKUS, TU Berlin, Berlin, Germany"
+                ]
+            },
+            {
+                "name": "Preston Rodrigues",
+                "affiliations": [
+                    "High-Performance Computing Center Stuttgart (HLRS), University of Stuttgart, Stuttgart, Germany",
+                    "Fraunhofer FOKUS, TU Berlin, Berlin, Germany"
+                ]
+            },
+            {
+                "name": "Taras Petrenko",
+                "affiliations": [
+                    "High-Performance Computing Center Stuttgart (HLRS), University of Stuttgart, Stuttgart, Germany",
+                    "Fraunhofer FOKUS, TU Berlin, Berlin, Germany"
+                ]
+            },
+            {
+                "name": "Volodymyr Kushnarenko",
+                "affiliations": [
+                    "High-Performance Computing Center Stuttgart (HLRS), University of Stuttgart, Stuttgart, Germany",
+                    "Fraunhofer FOKUS, TU Berlin, Berlin, Germany"
+                ]
+            },
+            {
+                "name": "Thomas Bönisch",
+                "affiliations": [
+                    "High-Performance Computing Center Stuttgart (HLRS), University of Stuttgart, Stuttgart, Germany",
+                    "Fraunhofer FOKUS, TU Berlin, Berlin, Germany"
+                ]
+            }
+        ],
+        "dct:relation": [
+            "NFDI4Cat Metaportal: https://meta4cat.fokus.fraunhofer.de/",
+            "NFDI4Cat Central Data Repository (Repo4Cat): https://repository.nfdi4cat.org",
+            "Voc4Cat - A SKOS vocabulary for Catalysis https://terminology.tib.eu/ts/ontologies/voc4cat",
+            "Persistent Identifiers for FAIR data in Catalysis: https://github.com/nfdi4cat/pid4cat-model"
+        ]
+    },
+    {
+        "file_title": "52353_abstract",
+        "dct:title": "Enhancing Catalysis for Data Insight through Semantic Integration: The REAC4Cat Ontology and its Data Pipeline",
+        "dcat:contactPoint": "Hendrik Borgelt",
+        "dcat:keyword": "",
+        "dct:publisher": "DECHEMA",
+        "dcat:theme": "http://eurovoc.europa.eu/100142",
+        "dct:type": "http://purl.org/spar/fabio/Abstract",
+        "dct:issued": "2025-10-14",
+        "dct:language": "en",
+        "authors": [
+            {
+                "name": "Hendrik Borgelt",
+                "affiliations": [
+                    "TU Dortmund University, Germany"
+                ]
+            },
+            {
+                "name": "A. S. Behr",
+                "affiliations": [
+                    "TU Dortmund University, Germany"
+                ]
+            },
+            {
+                "name": "P. Hecht",
+                "affiliations": [
+                    "TU Dortmund University, Germany"
+                ]
+            },
+            {
+                "name": "R. Kickartz",
+                "affiliations": [
+                    "TU Dortmund University, Germany"
+                ]
+            },
+            {
+                "name": "N. Kockmann",
+                "affiliations": [
+                    "TU Dortmund University, Germany"
+                ]
+            }
+        ],
+        "dct:relation": [
+            "Behr Alexander S., Borgelt Hendrik, Kockmann Norbert (2024): Reac4Cat-Ontology: Harnessing the Power of Ontological Description Logic in Catalysis Research as a Practical Approach to Knowledge Inferences. In: Datenbank Spektrum 24 (2), S. 139–150. DOI: 10.1007/s13222-024-00476-3.",
+            "Wilkinson Mark D., Dumontier Michel, Aalbersberg I. Jsbrand Jan, Appleton Gabrielle, Axton Myles, Baak Arie et al. (2016): The FAIR Guiding Principles for scientific data management and stewardship. In: Scientific data 3, S. 160018. DOI: 10.1038/sdata.2016.18.",
+            "Degtyarenko Kirill, Matos Paula de, Ennis Marcus, Hastings Janna, Zbinden Martin, McNaught Alan et al. (2008): ChEBI: a database and ontology for chemical entities of biological interest. In: Nucleic acids research 36 (Database issue), D344-50. DOI: 10.1093/nar/gkm791.",
+            "Batchelor C (2012) Chemical Reactions Ontology (RXNO). https://github.com/rsc- ontologies/rxno. Accessed 31 October 2024.",
+            "Batchelor C (2012) Molecular Process Ontology (MOP). https://github.com/rsc- ontologies/rxno. Accessed 31 October 2024."
+        ]
+    }
+]
