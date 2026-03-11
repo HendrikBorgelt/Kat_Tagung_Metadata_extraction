@@ -26,7 +26,7 @@ author and truncated co-author list on the second line.
 **Embed code:**
 ```html
 <iframe
-  src="https://YOUR-USERNAME.github.io/Kat_Tagung_Metadata_extraction/widgets/search_option_1.html"
+  src="https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/widgets/search_option_1.html"
   width="100%"
   height="440"
   frameborder="0">
@@ -56,7 +56,7 @@ allow users to dig into author details without leaving the page.
 **Embed code:**
 ```html
 <iframe
-  src="https://YOUR-USERNAME.github.io/Kat_Tagung_Metadata_extraction/widgets/search_option_2.html"
+  src="https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/widgets/search_option_2.html"
   width="100%"
   height="440"
   frameborder="0">
@@ -86,7 +86,7 @@ information and the ability to read the original abstract.
 **Embed code:**
 ```html
 <iframe
-  src="https://YOUR-USERNAME.github.io/Kat_Tagung_Metadata_extraction/widgets/search_option_3.html"
+  src="https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/widgets/search_option_3.html"
   width="100%"
   height="520"
   frameborder="0">
