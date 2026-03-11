@@ -1,0 +1,962 @@
+
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width,initial-scale=1">
+      
+        <meta name="description" content="Metadata extraction pipeline and search widget for the DECHEMA Katalytikertagung (German Catalysis Conference) abstracts.
+">
+      
+      
+        <meta name="author" content="NFDI4Cat">
+      
+      
+      
+        <link rel="prev" href="../extend/">
+      
+      
+      
+        
+      
+      
+      <link rel="icon" href="../../assets/images/favicon.png">
+      <meta name="generator" content="mkdocs-1.6.1, mkdocs-material-9.7.5">
+    
+    
+      
+        <title>Script Reference - Katalytikertagung – Abstract Metadata</title>
+      
+    
+    
+      <link rel="stylesheet" href="../../assets/stylesheets/main.484c7ddc.min.css">
+      
+        
+        <link rel="stylesheet" href="../../assets/stylesheets/palette.ab4e12ef.min.css">
+      
+      
+
+
+    
+    
+      
+    
+    
+      
+        
+        
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,700,700i%7CRoboto+Mono:400,400i,700,700i&display=fallback">
+        <style>:root{--md-text-font:"Roboto";--md-code-font:"Roboto Mono"}</style>
+      
+    
+    
+    <script>__md_scope=new URL("../..",location),__md_hash=e=>[...e].reduce(((e,_)=>(e<<5)-e+_.charCodeAt(0)),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    
+      
+
+    
+    
+  </head>
+  
+  
+    
+    
+    
+    
+    
+    <body dir="ltr" data-md-color-scheme="default" data-md-color-primary="blue" data-md-color-accent="blue">
+  
+    
+    <input class="md-toggle" data-md-toggle="drawer" type="checkbox" id="__drawer" autocomplete="off">
+    <input class="md-toggle" data-md-toggle="search" type="checkbox" id="__search" autocomplete="off">
+    <label class="md-overlay" for="__drawer"></label>
+    <div data-md-component="skip">
+      
+        
+        <a href="#script-reference" class="md-skip">
+          Skip to content
+        </a>
+      
+    </div>
+    <div data-md-component="announce">
+      
+    </div>
+    
+    
+      
+
+<header class="md-header" data-md-component="header">
+  <nav class="md-header__inner md-grid" aria-label="Header">
+    <a href="../.." title="Katalytikertagung – Abstract Metadata" class="md-header__button md-logo" aria-label="Katalytikertagung – Abstract Metadata" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    <label class="md-header__button md-icon" for="__drawer">
+      
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M3 6h18v2H3zm0 5h18v2H3zm0 5h18v2H3z"/></svg>
+    </label>
+    <div class="md-header__title" data-md-component="header-title">
+      <div class="md-header__ellipsis">
+        <div class="md-header__topic">
+          <span class="md-ellipsis">
+            Katalytikertagung – Abstract Metadata
+          </span>
+        </div>
+        <div class="md-header__topic" data-md-component="header-topic">
+          <span class="md-ellipsis">
+            
+              Script Reference
+            
+          </span>
+        </div>
+      </div>
+    </div>
+    
+      
+    
+    
+    
+    
+      
+      
+        <label class="md-header__button md-icon" for="__search">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        </label>
+        <div class="md-search" data-md-component="search" role="dialog">
+  <label class="md-search__overlay" for="__search"></label>
+  <div class="md-search__inner" role="search">
+    <form class="md-search__form" name="search">
+      <input type="text" class="md-search__input" name="query" aria-label="Search" placeholder="Search" autocapitalize="off" autocorrect="off" autocomplete="off" spellcheck="false" data-md-component="search-query" required>
+      <label class="md-search__icon md-icon" for="__search">
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5-1.5 1.5-5-5v-.79l-.27-.27A6.52 6.52 0 0 1 9.5 16 6.5 6.5 0 0 1 3 9.5 6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14 14 12 14 9.5 12 5 9.5 5"/></svg>
+        
+        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11z"/></svg>
+      </label>
+      <nav class="md-search__options" aria-label="Search">
+        
+        <button type="reset" class="md-search__icon md-icon" title="Clear" aria-label="Clear" tabindex="-1">
+          
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 6.41 17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/></svg>
+        </button>
+      </nav>
+      
+        <div class="md-search__suggest" data-md-component="search-suggest"></div>
+      
+    </form>
+    <div class="md-search__output">
+      <div class="md-search__scrollwrap" tabindex="0" data-md-scrollfix>
+        <div class="md-search-result" data-md-component="search-result">
+          <div class="md-search-result__meta">
+            Initializing search
+          </div>
+          <ol class="md-search-result__list" role="presentation"></ol>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+      
+    
+    
+  </nav>
+  
+</header>
+    
+    <div class="md-container" data-md-component="container">
+      
+      
+        
+          
+            
+<nav class="md-tabs" aria-label="Tabs" data-md-component="tabs">
+  <div class="md-grid">
+    <ul class="md-tabs__list">
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../.." class="md-tabs__link">
+        
+  
+  
+    
+  
+  Home
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+  
+    <li class="md-tabs__item">
+      <a href="../../search-options/" class="md-tabs__link">
+        
+  
+  
+    
+  
+  Search Options
+
+      </a>
+    </li>
+  
+
+      
+        
+  
+  
+  
+    
+  
+  
+    
+    
+      <li class="md-tabs__item md-tabs__item--active">
+        <a href="../" class="md-tabs__link">
+          
+  
+  
+  How To
+
+        </a>
+      </li>
+    
+  
+
+      
+    </ul>
+  </div>
+</nav>
+          
+        
+      
+      <main class="md-main" data-md-component="main">
+        <div class="md-main__inner md-grid">
+          
+            
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                <div class="md-sidebar__scrollwrap">
+                  <div class="md-sidebar__inner">
+                    
+
+
+  
+
+
+  
+
+<nav class="md-nav md-nav--primary md-nav--lifted md-nav--integrated" aria-label="Navigation" data-md-level="0">
+  <label class="md-nav__title" for="__drawer">
+    <a href="../.." title="Katalytikertagung – Abstract Metadata" class="md-nav__button md-logo" aria-label="Katalytikertagung – Abstract Metadata" data-md-component="logo">
+      
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 8a3 3 0 0 0 3-3 3 3 0 0 0-3-3 3 3 0 0 0-3 3 3 3 0 0 0 3 3m0 3.54C9.64 9.35 6.5 8 3 8v11c3.5 0 6.64 1.35 9 3.54 2.36-2.19 5.5-3.54 9-3.54V8c-3.5 0-6.64 1.35-9 3.54"/></svg>
+
+    </a>
+    Katalytikertagung – Abstract Metadata
+  </label>
+  
+  <ul class="md-nav__list" data-md-scrollfix>
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../.." class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Home
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../../search-options/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Search Options
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+    
+      
+      
+  
+  
+    
+  
+  
+  
+    
+    
+    
+    
+      
+        
+        
+      
+      
+        
+      
+    
+    
+    <li class="md-nav__item md-nav__item--active md-nav__item--section md-nav__item--nested">
+      
+        
+        
+        <input class="md-nav__toggle md-toggle " type="checkbox" id="__nav_3" checked>
+        
+          
+          <label class="md-nav__link" for="__nav_3" id="__nav_3_label" tabindex="">
+            
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    How To
+  
+
+    
+  </span>
+  
+  
+
+            <span class="md-nav__icon md-icon"></span>
+          </label>
+        
+        <nav class="md-nav" data-md-level="1" aria-labelledby="__nav_3_label" aria-expanded="true">
+          <label class="md-nav__title" for="__nav_3">
+            <span class="md-nav__icon md-icon"></span>
+            
+  
+    How To
+  
+
+          </label>
+          <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Overview
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../search/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Use the Search Widget
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+  
+    <li class="md-nav__item">
+      <a href="../extend/" class="md-nav__link">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Add New Abstracts
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+    
+  
+  
+  
+    <li class="md-nav__item md-nav__item--active">
+      
+      <input class="md-nav__toggle md-toggle" type="checkbox" id="__toc">
+      
+      
+        
+      
+      
+        <label class="md-nav__link md-nav__link--active" for="__toc">
+          
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script Reference
+  
+
+    
+  </span>
+  
+  
+
+          <span class="md-nav__icon md-icon"></span>
+        </label>
+      
+      <a href="./" class="md-nav__link md-nav__link--active">
+        
+  
+  
+  <span class="md-ellipsis">
+    
+  
+    Script Reference
+  
+
+    
+  </span>
+  
+  
+
+      </a>
+      
+        
+
+<nav class="md-nav md-nav--secondary" aria-label="Table of contents">
+  
+  
+  
+    
+  
+  
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#pipeline-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Pipeline scripts
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Pipeline scripts">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#scriptspipeline1_extractpy-batch-pdf-extraction" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scripts/pipeline/1_extract.py — Batch PDF extraction
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scriptspipeline2_review_guipy-review-management-gui" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scripts/pipeline/2_review_gui.py — Review &amp; management GUI
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#scriptspipelinesharedpy-shared-utilities-migration-cli" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        scripts/pipeline/shared.py — Shared utilities (migration CLI)
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#search-widget" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Search widget
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Search widget">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#search_widgetbuildpy-generate-widget-html-files" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        search_widget/build.py — Generate widget HTML files
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#documentation-site" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Documentation site
+      
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Documentation site">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#install-mkdocs" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Install MkDocs
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#local-preview" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Local preview
+      
+    </span>
+  </a>
+  
+</li>
+        
+          <li class="md-nav__item">
+  <a href="#deploy-to-github-pages" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Deploy to GitHub Pages
+      
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#other-scripts" class="md-nav__link">
+    <span class="md-ellipsis">
+      
+        Other scripts
+      
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
+  
+</nav>
+      
+    </li>
+  
+
+              
+            
+          </ul>
+        </nav>
+      
+    </li>
+  
+
+    
+  </ul>
+</nav>
+                  </div>
+                </div>
+              </div>
+            
+            
+          
+          
+            <div class="md-content" data-md-component="content">
+              
+              <article class="md-content__inner md-typeset">
+                
+                  
+
+
+
+<h1 id="script-reference">Script Reference<a class="headerlink" href="#script-reference" title="Permanent link">&para;</a></h1>
+<h2 id="pipeline-scripts">Pipeline scripts<a class="headerlink" href="#pipeline-scripts" title="Permanent link">&para;</a></h2>
+<h3 id="scriptspipeline1_extractpy-batch-pdf-extraction"><code>scripts/pipeline/1_extract.py</code> — Batch PDF extraction<a class="headerlink" href="#scriptspipeline1_extractpy-batch-pdf-extraction" title="Permanent link">&para;</a></h3>
+<p>Processes PDFs with a local Ollama model and writes results to <code>data/staging.json</code>.</p>
+<div class="highlight"><pre><span></span><code>py<span class="w"> </span>scripts/pipeline/1_extract.py<span class="w"> </span><span class="o">[</span>OPTIONS<span class="o">]</span>
+</code></pre></div>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>--input PATH</code></td>
+<td><code>data/abstracts/</code></td>
+<td>Folder of PDFs to process</td>
+</tr>
+<tr>
+<td><code>--model NAME</code></td>
+<td><code>llama3.2</code></td>
+<td>Ollama model name</td>
+</tr>
+<tr>
+<td><code>--issued DATE</code></td>
+<td>today</td>
+<td><code>dct:issued</code> date for this batch (<code>YYYY-MM-DD</code>)</td>
+</tr>
+<tr>
+<td><code>--skip-existing</code></td>
+<td>off</td>
+<td>Skip PDFs already present in staging or approved</td>
+</tr>
+<tr>
+<td><code>--dry-run</code></td>
+<td>off</td>
+<td>List matching PDFs without calling Ollama</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Output per PDF:</strong></p>
+<ul>
+<li><code>[N/M] file_title  OK</code> — successfully extracted</li>
+<li><code>[N/M] file_title  SKIP</code> — already exists (with <code>--skip-existing</code>)</li>
+<li><code>[N/M] file_title  FAIL</code> — Ollama returned invalid JSON after 2 attempts</li>
+</ul>
+<hr />
+<h3 id="scriptspipeline2_review_guipy-review-management-gui"><code>scripts/pipeline/2_review_gui.py</code> — Review &amp; management GUI<a class="headerlink" href="#scriptspipeline2_review_guipy-review-management-gui" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>py<span class="w"> </span>scripts/pipeline/2_review_gui.py
+</code></pre></div>
+<p><strong>Staged mode</strong> — review <code>staging.json</code> entries:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Approve</strong></td>
+<td>Moves entry to <code>abstract_metadata.json</code>; updates <code>affiliation_registry.json</code></td>
+</tr>
+<tr>
+<td><strong>Discard</strong></td>
+<td>Permanently removes entry from <code>staging.json</code></td>
+</tr>
+<tr>
+<td><strong>Skip</strong></td>
+<td>Advances to next entry without changes</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Approved mode</strong> — manage <code>abstract_metadata.json</code> entries:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Save</strong></td>
+<td>Writes edited fields back to <code>abstract_metadata.json</code></td>
+</tr>
+<tr>
+<td><strong>Delete</strong></td>
+<td>Removes entry from <code>abstract_metadata.json</code></td>
+</tr>
+</tbody>
+</table>
+<p><strong>Search filters:</strong> Title / Author / Affiliation (radio buttons in the left pane).</p>
+<p><strong>Granular deletion</strong> (within an entry):</p>
+<ul>
+<li>Remove individual author rows with the <strong>Remove author</strong> button.</li>
+<li>Remove individual affiliation strings with the <strong>x</strong> button per row.</li>
+</ul>
+<hr />
+<h3 id="scriptspipelinesharedpy-shared-utilities-migration-cli"><code>scripts/pipeline/shared.py</code> — Shared utilities (migration CLI)<a class="headerlink" href="#scriptspipelinesharedpy-shared-utilities-migration-cli" title="Permanent link">&para;</a></h3>
+<p>Not normally run directly.  One-time migration from the legacy intermediate files:</p>
+<div class="highlight"><pre><span></span><code>py<span class="w"> </span>scripts/pipeline/shared.py<span class="w"> </span>--migrate
+</code></pre></div>
+<p>Converts:</p>
+<ul>
+<li><code>data/intermediate/metadata_output_*_cleaned_affiliations3.json</code> → <code>data/abstract_metadata.json</code></li>
+<li><code>data/intermediate/affiliation_groups3.json</code> → <code>data/affiliation_registry.json</code></li>
+</ul>
+<hr />
+<h2 id="search-widget">Search widget<a class="headerlink" href="#search-widget" title="Permanent link">&para;</a></h2>
+<h3 id="search_widgetbuildpy-generate-widget-html-files"><code>search_widget/build.py</code> — Generate widget HTML files<a class="headerlink" href="#search_widgetbuildpy-generate-widget-html-files" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>py<span class="w"> </span>search_widget/build.py
+</code></pre></div>
+<p>Reads <code>data/abstract_metadata.json</code> and writes:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>docs/widgets/search_option_1.html</code></td>
+<td>Compact variant</td>
+</tr>
+<tr>
+<td><code>docs/widgets/search_option_2.html</code></td>
+<td>Accordion variant</td>
+</tr>
+<tr>
+<td><code>docs/widgets/search_option_3.html</code></td>
+<td>Full details + PDF reader link</td>
+</tr>
+<tr>
+<td><code>docs/widgets/reader.html</code></td>
+<td>Abstract reader page (metadata + PDF embed)</td>
+</tr>
+<tr>
+<td><code>search_widget/index.html</code></td>
+<td>Backward-compat copy of option 1</td>
+</tr>
+</tbody>
+</table>
+<p>Run this script every time <code>abstract_metadata.json</code> is updated, then commit
+the generated files.</p>
+<hr />
+<h2 id="documentation-site">Documentation site<a class="headerlink" href="#documentation-site" title="Permanent link">&para;</a></h2>
+<h3 id="install-mkdocs">Install MkDocs<a class="headerlink" href="#install-mkdocs" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>pip<span class="w"> </span>install<span class="w"> </span>mkdocs-material
+</code></pre></div>
+<h3 id="local-preview">Local preview<a class="headerlink" href="#local-preview" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>serve
+</code></pre></div>
+<p>Opens a live-reload preview at <code>http://127.0.0.1:8000</code>.</p>
+<h3 id="deploy-to-github-pages">Deploy to GitHub Pages<a class="headerlink" href="#deploy-to-github-pages" title="Permanent link">&para;</a></h3>
+<div class="highlight"><pre><span></span><code>mkdocs<span class="w"> </span>gh-deploy
+</code></pre></div>
+<p>Builds the site and pushes it to the <code>gh-pages</code> branch.
+The MkDocs hook (<code>scripts/mkdocs_hooks.py</code>) automatically copies PDFs from
+<code>data/abstracts/</code> into the build so they are served at <code>/abstracts/*.pdf</code>.</p>
+<hr />
+<h2 id="other-scripts">Other scripts<a class="headerlink" href="#other-scripts" title="Permanent link">&para;</a></h2>
+<table>
+<thead>
+<tr>
+<th>Script</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>scripts/normalize_ttl_affiliations.py</code></td>
+<td>One-time TTL URI normalisation (already applied)</td>
+</tr>
+<tr>
+<td><code>scripts/delete_abstracts.py</code></td>
+<td>Legacy deletion tool for the RDF/TTL file</td>
+</tr>
+<tr>
+<td><code>ontology/widoco_mergerand_modifier_00.py</code></td>
+<td>Widoco documentation pre-processor</td>
+</tr>
+<tr>
+<td><code>ontology/widoco_postmodifier_01.py</code></td>
+<td>Widoco documentation post-processor</td>
+</tr>
+</tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+                
+              </article>
+            </div>
+          
+          
+<script>var target=document.getElementById(location.hash.slice(1));target&&target.name&&(target.checked=target.name.startsWith("__tabbed_"))</script>
+        </div>
+        
+          <button type="button" class="md-top md-icon" data-md-component="top" hidden>
+  
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M13 20h-2V8l-5.5 5.5-1.42-1.42L12 4.16l7.92 7.92-1.42 1.42L13 8z"/></svg>
+  Back to top
+</button>
+        
+      </main>
+      
+        <footer class="md-footer">
+  
+  <div class="md-footer-meta md-typeset">
+    <div class="md-footer-meta__inner md-grid">
+      <div class="md-copyright">
+  
+  
+    Made with
+    <a href="https://squidfunk.github.io/mkdocs-material/" target="_blank" rel="noopener">
+      Material for MkDocs
+    </a>
+  
+</div>
+      
+    </div>
+  </div>
+</footer>
+      
+    </div>
+    <div class="md-dialog" data-md-component="dialog">
+      <div class="md-dialog__inner md-typeset"></div>
+    </div>
+    
+    
+    
+      
+      
+      <script id="__config" type="application/json">{"annotate": null, "base": "../..", "features": ["navigation.tabs", "navigation.sections", "navigation.top", "toc.integrate", "search.suggest"], "search": "../../assets/javascripts/workers/search.2c215733.min.js", "tags": null, "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}, "version": null}</script>
+    
+    
+      <script src="../../assets/javascripts/bundle.79ae519e.min.js"></script>
+      
+    
+  </body>
+</html>
