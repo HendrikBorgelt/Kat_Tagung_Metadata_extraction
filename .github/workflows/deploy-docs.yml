@@ -1,0 +1,56 @@
+name: Deploy documentation to GitHub Pages
+
+on:
+  push:
+    branches:
+      - working_branch
+    paths:
+      - "docs/**"
+      - "mkdocs.yml"
+      - "requirements-docs.txt"
+      - "search_widget/build.py"
+      - "data/abstract_metadata.json"
+      - "data/affiliation_registry.json"
+      - "scripts/mkdocs_hooks.py"
+      - "scripts/pipeline/shared.py"
+
+  # Allow manual trigger from the Actions tab
+  workflow_dispatch:
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: write   # needed for mkdocs gh-deploy to push to gh-pages branch
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          # Full history needed by mkdocs gh-deploy
+          fetch-depth: 0
+
+      - name: Set up Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
+          cache-dependency-path: requirements-docs.txt
+
+      - name: Install documentation dependencies
+        run: pip install -r requirements-docs.txt
+
+      - name: Generate search widgets
+        run: python search_widget/build.py
+
+      - name: Configure git identity for gh-deploy
+        run: |
+          git config user.name  "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Build and deploy to GitHub Pages
+        run: mkdocs gh-deploy --force
+        # mkdocs gh-deploy builds the site, runs mkdocs_hooks.py (which copies
+        # the PDFs from data/abstracts/ into the build), then pushes everything
+        # to the gh-pages branch.  GitHub Pages serves from that branch.

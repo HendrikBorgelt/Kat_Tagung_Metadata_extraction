@@ -1,0 +1,40 @@
+site_name: Katalytikertagung – Abstract Metadata
+site_description: >
+  Metadata extraction pipeline and search widget for the DECHEMA Katalytikertagung
+  (German Catalysis Conference) abstracts.
+site_author: NFDI4Cat
+
+docs_dir: docs
+site_dir: site
+
+theme:
+  name: material
+  palette:
+    primary: blue
+    accent: blue
+  features:
+    - navigation.tabs
+    - navigation.sections
+    - navigation.top
+    - toc.integrate
+    - search.suggest
+
+nav:
+  - Home: index.md
+  - Search Options: search-options.md
+  - How To:
+    - Overview: how-to/index.md
+    - Use the Search Widget: how-to/search.md
+    - Add New Abstracts: how-to/extend.md
+    - Script Reference: how-to/scripts.md
+
+hooks:
+  - scripts/mkdocs_hooks.py
+
+markdown_extensions:
+  - admonition
+  - pymdownx.details
+  - pymdownx.superfences
+  - tables
+  - toc:
+      permalink: true
