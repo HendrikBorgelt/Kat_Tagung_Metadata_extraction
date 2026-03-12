@@ -13,6 +13,7 @@ on:
       - "data/affiliation_registry.json"
       - "scripts/mkdocs_hooks.py"
       - "scripts/pipeline/shared.py"
+      - ".github/workflows/deploy-docs.yml"
 
   # Allow manual trigger from the Actions tab
   workflow_dispatch:

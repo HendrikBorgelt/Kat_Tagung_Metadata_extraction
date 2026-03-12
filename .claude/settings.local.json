@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(py search_widget/build.py)",
+      "Bash(python -c \"lines = open\\(''docs/search-options.md'', encoding=''utf-8''\\).readlines\\(\\); print\\(f''Total lines: {len\\(lines\\)}''\\); print\\(''''.join\\(lines[-30:]\\)\\)\")"
+    ]
+  }
+}

@@ -3,6 +3,7 @@ site_description: >
   Metadata extraction pipeline and search widget for the DECHEMA Katalytikertagung
   (German Catalysis Conference) abstracts.
 site_author: NFDI4Cat
+site_url: https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/
 
 docs_dir: docs
 site_dir: site
