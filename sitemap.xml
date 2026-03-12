@@ -1,3 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    <url>
+         <loc>https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/</loc>
+         <lastmod>2026-03-12</lastmod>
+    </url>
+    <url>
+         <loc>https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/search-options/</loc>
+         <lastmod>2026-03-12</lastmod>
+    </url>
+    <url>
+         <loc>https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/how-to/</loc>
+         <lastmod>2026-03-12</lastmod>
+    </url>
+    <url>
+         <loc>https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/how-to/extend/</loc>
+         <lastmod>2026-03-12</lastmod>
+    </url>
+    <url>
+         <loc>https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/how-to/scripts/</loc>
+         <lastmod>2026-03-12</lastmod>
+    </url>
+    <url>
+         <loc>https://hendrikborgelt.github.io/Kat_Tagung_Metadata_extraction/how-to/search/</loc>
+         <lastmod>2026-03-12</lastmod>
+    </url>
 </urlset>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katalytikertagung – Abstract Search (Compact)</title>
+  <title>Katalytikertagung – Abstract Search (Compact Accordion)</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -59,21 +59,40 @@
     }
     .footer img { height: 16px; opacity: 0.5; transition: opacity 0.15s; }
     .footer a:hover img { opacity: 0.85; }
-    .row {
-      padding: 7px 12px; border-bottom: 1px solid #f2f2f2;
+    .row { border-bottom: 1px solid #f2f2f2; }
+    .row-hdr {
+      padding: 6px 10px 3px; cursor: pointer;
+      display: flex; align-items: baseline; gap: 5px;
     }
-    .row:hover { background: #fafafa; }
-    .row-title {
-      font-weight: 500; color: #111; line-height: 1.35;
+    .row-hdr:hover { background: #fafafa; }
+    .arrow { font-size: 9px; color: #aaa; flex-shrink: 0; margin-top: 2px; }
+    .row-title { font-weight: 500; color: #111; flex: 1; line-height: 1.3; }
+    .row-year  { font-size: 11px; color: #bbb; flex-shrink: 0; }
+    .row-always {
+      padding: 0 10px 5px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
     }
-    .row-year {
-      float: right; font-size: 11px; color: #bbb; margin-left: 8px; margin-top: 1px;
+    .row-contact { font-size: 11px; color: #555; font-weight: 500; flex: 1;
+                   overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .read-link {
+      font-size: 11px; color: #0057a8; text-decoration: none; white-space: nowrap;
+      border: 1px solid #c8daef; border-radius: 3px; padding: 1px 6px; flex-shrink: 0;
     }
-    .row-meta {
-      font-size: 11px; color: #888; margin-top: 2px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    .read-link:hover { background: #eef4fb; }
+    .row-body {
+      display: none; padding: 4px 10px 8px 24px;
+      font-size: 11px; color: #555; line-height: 1.5;
     }
-    .row-contact { font-weight: 500; color: #666; }
+    .row-body.open { display: block; }
+    .detail-author { margin-bottom: 3px; }
+    .detail-name   { color: #333; }
+    .detail-aff    { padding-left: 14px; color: #999; line-height: 1.4; }
+    .detail-section {
+      margin-top: 5px; padding-top: 5px; border-top: 1px solid #f0f0f0;
+    }
+    .detail-lbl  { font-weight: 500; color: #666; }
+    .detail-kw   { color: #888; margin-top: 3px; }
+    .detail-rels { color: #888; margin-top: 2px; }
   </style>
 </head>
 <body>
@@ -152,17 +171,65 @@
     r.addEventListener("change", function(){ fuse=makeFuse(r.value); search(); });
   });
   function renderRow(d) {
-    var contact = d.contact ? '<span class="row-contact">'+esc(d.contact)+'</span>' : '';
-    var sep = contact && d.authorDisplay ? ' · ' : '';
+    var readLink = d.fileTitle
+      ? '<a class="read-link" href="./reader.html?id='+esc(d.fileTitle)
+          +'" target="_blank">Read abstract →</a>'
+      : '';
+    var contact = d.contact
+      ? '<span class="row-contact">'+esc(d.contact)+'</span>'
+      : '';
+    var details = (d.authorDetails||[]).map(function(a) {
+      var affsHtml = (a.affs||[]).map(function(af) {
+        return '<div class="detail-aff">'+esc(af)+'</div>';
+      }).join("");
+      return '<div class="detail-author">'
+        + '<div class="detail-name">'+esc(a.name)+'</div>'
+        + affsHtml
+        + '</div>';
+    }).join("");
+    var kw = d.keywords
+      ? '<div class="detail-kw"><span class="detail-lbl">Keywords: </span>'
+          +esc(d.keywords)+'</div>'
+      : '';
+    var rels = (d.relations||[]).length
+      ? '<div class="detail-rels"><span class="detail-lbl">References: </span>'
+          +(d.relations||[]).map(function(r){return esc(r);}).join("; ")+'</div>'
+      : '';
+    var extra = (kw||rels) ? '<div class="detail-section">'+kw+rels+'</div>' : '';
+    var alwaysContent = contact+readLink;
     return '<div class="row">'
-      + '<div class="row-title">'
+      + '<div class="row-hdr">'
+      +   '<span class="arrow">&#9654;</span>'
+      +   '<span class="row-title">'+esc(d.title)+'</span>'
       +   '<span class="row-year">'+esc(d.year)+'</span>'
-      +   esc(d.title)
       + '</div>'
-      + '<div class="row-meta">'+contact+sep+esc(d.authorDisplay)+'</div>'
+      + (alwaysContent ? '<div class="row-always">'+alwaysContent+'</div>' : '')
+      + '<div class="row-body">'+details+extra+'</div>'
       + '</div>';
   }
-
+  document.addEventListener("click", function(e) {
+    // "Read abstract" link: when embedded in a parent page, post the reader
+    // URL to the parent instead of opening a new tab, so the parent can
+    // display the PDF in a sibling iframe.  Falls back to normal new-tab
+    // behaviour when the widget is used standalone.
+    var link = e.target.closest(".read-link");
+    if (link) {
+      if (window.parent !== window) {
+        e.preventDefault();
+        window.parent.postMessage(
+          { type: "katTagung_openReader", url: link.href }, "*"
+        );
+      }
+      return;
+    }
+    // Accordion toggle (click on .row-hdr only, not on .row-always)
+    var hdr = e.target.closest(".row-hdr");
+    if (!hdr) return;
+    var body   = hdr.closest(".row").querySelector(".row-body");
+    var isOpen = body.classList.contains("open");
+    body.classList.toggle("open", !isOpen);
+    hdr.querySelector(".arrow").innerHTML = isOpen ? "&#9654;" : "&#9660;";
+  });
   render(DATA);
 }());
 </script>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Katalytikertagung – Abstract Search (Compact)</title>
+  <title>Katalytikertagung – Abstract Search and Display</title>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
     body {
@@ -59,21 +59,82 @@
     }
     .footer img { height: 16px; opacity: 0.5; transition: opacity 0.15s; }
     .footer a:hover img { opacity: 0.85; }
-    .row {
-      padding: 7px 12px; border-bottom: 1px solid #f2f2f2;
+    /* Results: capped height; compressed further when reader is open */
+    #results { flex: none; max-height: 230px; overflow-y: auto; }
+    body.reader-open #results { max-height: 150px; }
+    .row { border-bottom: 1px solid #f2f2f2; }
+    .row-hdr {
+      padding: 6px 10px 3px; cursor: pointer;
+      display: flex; align-items: baseline; gap: 5px;
     }
-    .row:hover { background: #fafafa; }
-    .row-title {
-      font-weight: 500; color: #111; line-height: 1.35;
+    .row-hdr:hover { background: #fafafa; }
+    .arrow { font-size: 9px; color: #aaa; flex-shrink: 0; margin-top: 2px; }
+    .row-title { font-weight: 500; color: #111; flex: 1; line-height: 1.3; }
+    .row-year  { font-size: 11px; color: #bbb; flex-shrink: 0; }
+    .row-always {
+      padding: 0 10px 5px 24px;
+      display: flex; align-items: center; justify-content: space-between; gap: 8px;
     }
-    .row-year {
-      float: right; font-size: 11px; color: #bbb; margin-left: 8px; margin-top: 1px;
+    .row-contact { font-size: 11px; color: #555; font-weight: 500; flex: 1;
+                   overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .read-link {
+      font-size: 11px; color: #0057a8; text-decoration: none; white-space: nowrap;
+      border: 1px solid #c8daef; border-radius: 3px; padding: 1px 6px; flex-shrink: 0;
     }
-    .row-meta {
-      font-size: 11px; color: #888; margin-top: 2px;
-      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    .read-link:hover { background: #eef4fb; }
+    .row-body {
+      display: none; padding: 4px 10px 8px 24px;
+      font-size: 11px; color: #555; line-height: 1.5;
     }
-    .row-contact { font-weight: 500; color: #666; }
+    .row-body.open { display: block; }
+    .detail-author  { margin-bottom: 3px; }
+    .detail-name    { color: #333; }
+    .detail-aff     { padding-left: 14px; color: #999; line-height: 1.4; }
+    .detail-section { margin-top: 5px; padding-top: 5px; border-top: 1px solid #f0f0f0; }
+    .detail-lbl     { font-weight: 500; color: #666; }
+    .detail-kw      { color: #888; margin-top: 3px; }
+    .detail-rels    { color: #888; margin-top: 2px; }
+    /* Reader pane — hidden until a result is opened */
+    .reader-pane {
+      display: none; flex-direction: column; flex: 1; min-height: 0;
+      border-top: 2px solid #e0e0e0;
+    }
+    body.reader-open .reader-pane { display: flex; }
+    .rdr-hdr {
+      padding: 5px 12px; display: flex; align-items: center; gap: 8px;
+      border-bottom: 1px solid #ececec; flex-shrink: 0;
+    }
+    .rdr-back {
+      background: none; border: 1px solid #ccc; border-radius: 3px;
+      padding: 2px 8px; font-size: 11px; cursor: pointer; color: #555; flex-shrink: 0;
+    }
+    .rdr-back:hover { background: #f5f5f5; }
+    .rdr-title {
+      font-size: 12px; font-weight: 500; color: #333; flex: 1;
+      overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+    }
+    .rdr-meta {
+      padding: 5px 12px; font-size: 11px; color: #666; line-height: 1.5;
+      border-bottom: 1px solid #ececec; flex-shrink: 0;
+      max-height: 90px; overflow-y: auto;
+    }
+    .rdr-meta-author { display: block; }
+    .rdr-meta-aff    { display: block; padding-left: 14px; color: #999; }
+    /* pdf-wrap is a flex column so both the loading div and the iframe
+       can use flex:1 to reliably fill the remaining height */
+    .rdr-pdf-wrap {
+      flex: 1; min-height: 0; padding: 6px 12px 8px;
+      display: flex; flex-direction: column;
+    }
+    .rdr-pdf-wrap iframe {
+      flex: 1; width: 100%; border: 1px solid #ddd; border-radius: 3px;
+      min-height: 0;
+    }
+    .rdr-loading {
+      flex: 1; display: flex; align-items: center; justify-content: center;
+      color: #bbb; font-size: 12px; letter-spacing: 0.02em;
+      border: 1px dashed #e0e0e0; border-radius: 3px;
+    }
   </style>
 </head>
 <body>
@@ -97,6 +158,22 @@
 </div>
 <div id="count"></div>
 <div id="results"></div>
+<div id="reader-pane" class="reader-pane">
+  <div class="rdr-hdr">
+    <button id="rdr-back" class="rdr-back">&#8592; Back</button>
+    <span id="rdr-title" class="rdr-title"></span>
+  </div>
+  <div id="rdr-meta" class="rdr-meta"></div>
+  <div class="rdr-pdf-wrap">
+    <!-- Loading placeholder: visible while parent iframe is resizing and
+         the PDF has not yet started rendering. -->
+    <div id="rdr-loading" class="rdr-loading">Loading PDF&#8230;</div>
+    <!-- PDF iframe: hidden until the 250 ms resize-settle delay has passed,
+         so the browser PDF viewer always initialises at the correct height. -->
+    <iframe id="rdr-pdf" src="about:blank" title="Abstract PDF"
+            style="display:none; flex:1;"></iframe>
+  </div>
+</div>
 <div class="footer">
   <span class="footer-label">Provided by</span>
   <a href="https://nfdi4cat.org" target="_blank" rel="noopener noreferrer">
@@ -152,17 +229,133 @@
     r.addEventListener("change", function(){ fuse=makeFuse(r.value); search(); });
   });
   function renderRow(d) {
-    var contact = d.contact ? '<span class="row-contact">'+esc(d.contact)+'</span>' : '';
-    var sep = contact && d.authorDisplay ? ' · ' : '';
+    var readLink = d.fileTitle
+      ? '<a class="read-link" href="#" data-id="'+esc(d.fileTitle)+'">Read abstract →</a>'
+      : '';
+    var contact = d.contact
+      ? '<span class="row-contact">'+esc(d.contact)+'</span>'
+      : '';
+    var details = (d.authorDetails||[]).map(function(a) {
+      var affsHtml = (a.affs||[]).map(function(af) {
+        return '<div class="detail-aff">'+esc(af)+'</div>';
+      }).join("");
+      return '<div class="detail-author">'
+        + '<div class="detail-name">'+esc(a.name)+'</div>'
+        + affsHtml
+        + '</div>';
+    }).join("");
+    var kw = d.keywords
+      ? '<div class="detail-kw"><span class="detail-lbl">Keywords: </span>'
+          +esc(d.keywords)+'</div>'
+      : '';
+    var rels = (d.relations||[]).length
+      ? '<div class="detail-rels"><span class="detail-lbl">References: </span>'
+          +(d.relations||[]).map(function(r){return esc(r);}).join("; ")+'</div>'
+      : '';
+    var extra = (kw||rels) ? '<div class="detail-section">'+kw+rels+'</div>' : '';
+    var alwaysContent = contact+readLink;
     return '<div class="row">'
-      + '<div class="row-title">'
+      + '<div class="row-hdr">'
+      +   '<span class="arrow">&#9654;</span>'
+      +   '<span class="row-title">'+esc(d.title)+'</span>'
       +   '<span class="row-year">'+esc(d.year)+'</span>'
-      +   esc(d.title)
       + '</div>'
-      + '<div class="row-meta">'+contact+sep+esc(d.authorDisplay)+'</div>'
+      + (alwaysContent ? '<div class="row-always">'+alwaysContent+'</div>' : '')
+      + '<div class="row-body">'+details+extra+'</div>'
       + '</div>';
   }
+  var HEIGHT_CLOSED = 340;
+  var HEIGHT_OPEN   = 800;
 
+  function notifyResize(h) {
+    if (window.parent !== window) {
+      window.parent.postMessage({ type: "katTagung_resize", height: h }, "*");
+    }
+  }
+
+  function openReader(fileTitle) {
+    var entry = null;
+    for (var i = 0; i < DATA.length; i++) {
+      if (DATA[i].fileTitle === fileTitle) { entry = DATA[i]; break; }
+    }
+    if (!entry) return;
+    // Populate header title
+    document.getElementById("rdr-title").textContent = entry.title || "";
+    // Populate meta: authors + affiliations; mark presenting author
+    var authHtml = (entry.authorDetails || []).map(function(a) {
+      var affs = (a.affs || []).map(function(af) {
+        return '<span class="rdr-meta-aff">'+esc(af)+'</span>';
+      }).join("");
+      return '<span class="rdr-meta-author">'
+        + esc(a.name)
+        + (entry.contact === a.name
+            ? ' <em style="color:#0057a8;font-style:normal;">★</em>' : "")
+        + '</span>' + affs;
+    }).join("");
+    document.getElementById("rdr-meta").innerHTML = authHtml;
+    // Reset PDF state: show loading placeholder, hide iframe
+    var pdfEl      = document.getElementById("rdr-pdf");
+    var loadingEl  = document.getElementById("rdr-loading");
+    pdfEl.style.display     = "none";
+    pdfEl.src               = "about:blank";
+    loadingEl.style.display = "flex";
+    loadingEl.textContent   = "Loading PDF…";
+    // Reveal reader pane and ask parent page to expand the iframe
+    document.getElementById("reader-pane").classList.add("open");
+    document.body.classList.add("reader-open");
+    notifyResize(HEIGHT_OPEN);
+    // Delay loading the PDF until AFTER the parent-iframe resize transition
+    // has fully completed.  The embed code uses "transition: height 0.4s ease",
+    // so waiting 450 ms (just past 400 ms) guarantees the PDF viewer always
+    // initialises at the final 800 px height, not at a mid-animation height.
+    var pdfSrc = "../abstracts/" + encodeURIComponent(fileTitle) + ".pdf";
+    setTimeout(function() {
+      pdfEl.onload = function() {
+        loadingEl.style.display = "none";
+        pdfEl.style.display     = "flex";
+      };
+      // Fallback: browser PDF viewers often do not fire the iframe onload
+      // event reliably.  Keep "Loading PDF…" visible for up to 30 s so the
+      // user sees feedback while the file downloads, then reveal the iframe
+      // unconditionally (PDF should be rendered by then in most cases).
+      setTimeout(function() {
+        loadingEl.style.display = "none";
+        pdfEl.style.display     = "flex";
+      }, 30000);
+      pdfEl.src = pdfSrc;
+    }, 450);
+  }
+
+  function closeReader() {
+    var pdfEl     = document.getElementById("rdr-pdf");
+    var loadingEl = document.getElementById("rdr-loading");
+    document.getElementById("reader-pane").classList.remove("open");
+    document.body.classList.remove("reader-open");
+    pdfEl.src               = "about:blank";
+    pdfEl.style.display     = "none";
+    loadingEl.style.display = "flex";
+    loadingEl.textContent   = "Loading PDF…";
+    notifyResize(HEIGHT_CLOSED);
+  }
+
+  document.getElementById("rdr-back").addEventListener("click", closeReader);
+
+  document.addEventListener("click", function(e) {
+    // "Read abstract" opens the inline reader pane
+    var link = e.target.closest(".read-link");
+    if (link) {
+      e.preventDefault();
+      openReader(link.getAttribute("data-id"));
+      return;
+    }
+    // Accordion toggle (header only, not .row-always)
+    var hdr = e.target.closest(".row-hdr");
+    if (!hdr) return;
+    var body   = hdr.closest(".row").querySelector(".row-body");
+    var isOpen = body.classList.contains("open");
+    body.classList.toggle("open", !isOpen);
+    hdr.querySelector(".arrow").innerHTML = isOpen ? "&#9654;" : "&#9660;";
+  });
   render(DATA);
 }());
 </script>
