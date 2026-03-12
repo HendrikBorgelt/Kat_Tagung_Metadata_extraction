@@ -992,7 +992,7 @@ _KG_TEMPLATE = """\
     <div id="suggestions"></div>
   </div>
   <div id="dist-wrap">
-    <span id="dist-label">Distance:</span>
+    <span id="dist-label">Level:</span>
     <div id="dist-btns">
       <button class="dist-btn active" data-dist="1">1</button>
       <button class="dist-btn" data-dist="2">2</button>
